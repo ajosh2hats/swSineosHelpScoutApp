@@ -1,39 +1,45 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
+use HelpScoutApp\DynamicApp;
 use Dotenv\Dotenv;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use SwSineos\ShopwareClient;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// Remember to always check if a key is set before using it, as context may change depending on where your app is displayed.
-if (!empty($_REQUEST) && !empty($_REQUEST['conversation-id'])) {
-    $conversationId = $_REQUEST['conversation-id'];
+$app = new DynamicApp('8bed8a91-3fdb-4649-928d-f0be3fd79599');
 
-    try {
-        // Create a Guzzle client instance
-        $client = new Client();
+if ($app->isSignatureValid()) {
+        $customer = $app->getCustomer();
 
-        $baseUrl = $_ENV['SINEOS_BASE_URL'];
+		$shopwareClient = new ShopwareClient();
+		echo $shopwareClient->getAccessToken();
 
-        // Make a request to Help Scout API to get conversation details
-        $response = $client->get($baseUrl . '/conversations/' . $conversationId, [
-            'headers' => [
-                // 'Authorization' => 'Bearer ' . $apiKey,
-            ],
-        ]);
-
-        // Decode the JSON response
-        $conversationDetails = json_decode($response->getBody(), true);
-
-        // Handle the conversation details as needed
-        // ...
-
-    } catch (RequestException $e) {
-        // Handle request exception (e.g., output error message)
-        echo 'Error: ' . $e->getMessage();
-    }
+        $html = array(
+			'<h4><a href="[URL here]">'.$customer->getFirstName().' '.$customer->getLastName().'</a></h4>
+			<ul class="c-sb-list c-sb-list--two-line">
+			  <li class="c-sb-list-item">
+				<span class="c-sb-list-item__label">
+				  Customer since
+				  <span class="c-sb-list-item__text">05/07/2012</span>
+				</span>
+			  </li>
+			  <li class="c-sb-list-item">
+				<span class="c-sb-list-item__label">
+				  Lifetime Value
+				  <span class="c-sb-list-item__text">$1,245.00</span>
+				</span>
+			  </li>
+			  <li class="c-sb-list-item">
+				<span class="c-sb-list-item__label">
+				  User Role
+				  <span class="c-sb-list-item__text">Administrator</span>
+				</span>
+			  </li>
+			</ul>'
+        );
+        echo $app->getResponse($html);
+} else {
+        echo "Signature validation failed. 😔";
 }
-?>

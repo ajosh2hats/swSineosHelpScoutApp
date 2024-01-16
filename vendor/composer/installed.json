@@ -400,6 +400,53 @@
             "install-path": "../guzzlehttp/psr7"
         },
         {
+            "name": "helpscout/apps",
+            "version": "1.1.1",
+            "version_normalized": "1.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helpscout/helpscout-apps-php.git",
+                "reference": "ad70710dfa6fdf82ad851baa9cc8a04802da9d52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helpscout/helpscout-apps-php/zipball/ad70710dfa6fdf82ad851baa9cc8a04802da9d52",
+                "reference": "ad70710dfa6fdf82ad851baa9cc8a04802da9d52",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "time": "2018-04-06T13:21:32+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "HelpScoutApp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Client library to assist with building dynamic apps that integrate with the Help Scout UI",
+            "homepage": "http://www.helpscout.net",
+            "keywords": [
+                "apps",
+                "dynamic-app",
+                "helpscout"
+            ],
+            "support": {
+                "issues": "https://github.com/helpscout/helpscout-apps-php/issues",
+                "source": "https://github.com/helpscout/helpscout-apps-php/tree/develop"
+            },
+            "install-path": "../helpscout/apps"
+        },
+        {
             "name": "phpoption/phpoption",
             "version": "1.9.2",
             "version_normalized": "1.9.2.0",

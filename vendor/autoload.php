@@ -20,6 +20,11 @@ if (PHP_VERSION_ID < 50600) {
     );
 }
 
+spl_autoload_register(function ($class) {
+    // Assuming files are named the same as the classes
+    require __DIR__ . '/../' . str_replace('\\', '/', $class) . '.php';
+});
+
 require_once __DIR__ . '/composer/autoload_real.php';
 
 return ComposerAutoloaderInit4b55c7ef33235a0353c1b6b079f86964::getLoader();
